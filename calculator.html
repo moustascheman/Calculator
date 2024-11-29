@@ -11,42 +11,42 @@
     <div class="mainContainer">
         <div class="displayScreen">
             <div id="topDisplay">
-                85 +
+                
             </div>
             <div id="MainDisplay">
-                85
+                0
             </div>
         </div>
-        <div class="numpad">
+        <div class="numpad" id="numpad">
             <div class="numpadRow">
-                <button id="ceButton" class="darkerButton">CE</button>
-                <button id ="cButton" class="darkerButton">C</button>
-                <button id="backspace" class="darkerButton">⌫</button>
-                <button id="division" class="darkerButton">÷</button>
+                <button id="ceButton" class="darkerButton" data-type="util">CE</button>
+                <button id ="cButton" class="darkerButton" data-type="util">C</button>
+                <button id="backspace" class="darkerButton" data-type="util">⌫</button>
+                <button id="division" class="darkerButton" data-type="operation">÷</button>
             </div>
             <div class="numpadRow">
-                <button id="sevenButton" class="lighterButton">7</button>
-                <button id="eightButton" class="lighterButton">8</button>
-                <button id="nineButton" class="lighterButton">9</button>
-                <button id="multiply" class="darkerButton">×</button>
+                <button id="sevenButton" class="lighterButton" data-type="operand">7</button>
+                <button id="eightButton" class="lighterButton" data-type="operand">8</button>
+                <button id="nineButton" class="lighterButton" data-type="operand">9</button>
+                <button id="multiply" class="darkerButton" data-type="operation">×</button>
             </div>
             <div class="numpadRow">
-                <button id="fourButton" class="lighterButton">4</button>
-                <button id="fiveButton" class="lighterButton">5</button>
-                <button id="sixButton" class="lighterButton">6</button>
-                <button id="subtract" class="darkerButton">−</button>
+                <button id="fourButton" class="lighterButton" data-type="operand">4</button>
+                <button id="fiveButton" class="lighterButton" data-type="operand">5</button>
+                <button id="sixButton" class="lighterButton" data-type="operand">6</button>
+                <button id="subtract" class="darkerButton" data-type="operation">−</button>
             </div>
             <div class="numpadRow">
-                <button id="oneButton" class="lighterButton">1</button>
-                <button id="twoButton" class="lighterButton">2</button>
-                <button id="threeButton" class="lighterButton">3</button>
-                <button id="addition" class="darkerButton">+</button>
+                <button id="oneButton" class="lighterButton" data-type="operand">1</button>
+                <button id="twoButton" class="lighterButton" data-type="operand">2</button>
+                <button id="threeButton" class="lighterButton" data-type="operand">3</button>
+                <button id="addition" class="darkerButton" data-type="operation">+</button>
             </div>
             <div class="numpadRow">
-                <button id="signButton" class="lighterButton">+/-</button>
-                <button id="zeroButton" class="lighterButton">0</button>
-                <button id="decimalButton" class="lighterButton">.</button>
-                <button id="equals">=</button>
+                <button id="signButton" class="lighterButton" data-type="operand">+/-</button>
+                <button id="zeroButton" class="lighterButton" data-type="operand">0</button>
+                <button id="decimalButton" class="lighterButton" data-type="operand">.</button>
+                <button id="equals" data-type="operation">=</button>
             </div>
 
         </div>
