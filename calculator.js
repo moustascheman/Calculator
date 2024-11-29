@@ -22,18 +22,18 @@ const topDisplay = document.querySelector("#topDisplay");
 const mainDisplay = document.querySelector("#MainDisplay");
 
 
-numpad.addEventListener("click", function(e){
-    
+numpad.addEventListener("click", function (e) {
+
     ButtonEvent(e);
 });
 
-function ButtonEvent(event){
-    if(errorState == 1){
+function ButtonEvent(event) {
+    if (errorState == 1) {
         mainDisplay.textContent = 0;
         errorState = 0;
         return;
     }
-    switch(event.target.dataset.type){
+    switch (event.target.dataset.type) {
         case "operand":
             OperandEvent(event.target);
             break;
@@ -41,16 +41,16 @@ function ButtonEvent(event){
             OperationEvent(event.target);
             break;
         case "util":
-
+            UtilEvent(event.target);
             break;
     }
 }
 
 
 
-function OperandEvent(cell){
+function OperandEvent(cell) {
     let currentOperand = getCurrentOperand();
-    switch(cell.id){
+    switch (cell.id) {
         case "signButton":
             SignSwitch(currentOperand);
             break;
@@ -67,38 +67,38 @@ function OperandEvent(cell){
 }
 
 
-function SignSwitch(currentOperand){
-    if(currentOperand.length < 2){
+function SignSwitch(currentOperand) {
+    if (currentOperand.length < 2) {
         return;
     }
-    if(currentOperand[0] == '+'){
+    if (currentOperand[0] == '+') {
         currentOperand[0] = '-';
     }
-    else{
+    else {
         currentOperand[0] = '+';
     }
     updateMainDisplay(currentOperand);
 }
 
-function ZeroOperation(currentOperand){
-    if(operator == EQUALS){
+function ZeroOperation(currentOperand) {
+    if (operator == EQUALS) {
         ClearAllButton();
     }
-    if(currentOperand.length < 2){
+    if (currentOperand.length < 2) {
         return;
     }
     currentOperand.push('0');
     updateMainDisplay(currentOperand);
 }
 
-function DecimalOperation(currentOperand){
-    if(operator == EQUALS){
+function DecimalOperation(currentOperand) {
+    if (operator == EQUALS) {
         ClearAllButton();
     }
-    if(currentOperand.includes('.')){
+    if (currentOperand.includes('.')) {
         return;
     }
-    if(currentOperand.length < 1){
+    if (currentOperand.length < 1) {
         currentOperand.push('+', '0', '.');
         updateMainDisplay(currentOperand);
         return;
@@ -107,23 +107,23 @@ function DecimalOperation(currentOperand){
     updateMainDisplay(currentOperand);
 }
 
-function NumberOperation(currentOperand, numString){
-    if(operator == EQUALS){
+function NumberOperation(currentOperand, numString) {
+    if (operator == EQUALS) {
         ClearAllButton();
         currentOperand = firstOperand;
     }
-    if(currentOperand.length < 1){
+    if (currentOperand.length < 1) {
         currentOperand.push('+');
     }
-    
+
     currentOperand.push(numString);
     updateMainDisplay(currentOperand);
 }
 
 
-function OperationEvent(cell){
+function OperationEvent(cell) {
     const buttonPressed = cell.id;
-    switch(buttonPressed){
+    switch (buttonPressed) {
         case "addition":
             AdditionOperation();
             break;
@@ -142,31 +142,31 @@ function OperationEvent(cell){
     }
 }
 
-function EqualsOperation(){
-    if(operator == null){
+function EqualsOperation() {
+    if (operator == null) {
         return;
     }
-    if(operator == EQUALS){
+    if (operator == EQUALS) {
         EqualsOperationLogic(firstOperand, cachedOperand, cachedOperator);
         operator = EQUALS;
         return;
     }
 
-    if(secondOperand.length < 1){
+    if (secondOperand.length < 1) {
         secondOperand = firstOperand;
     }
     EqualsOperationLogic(firstOperand, secondOperand, operator);
     operator = EQUALS;
 }
 
-function EqualsOperationLogic(operand1, operand2, op){
+function EqualsOperationLogic(operand1, operand2, op) {
     const firstFloat = parseFloat(operand1.join(''));
     const secondFloat = parseFloat(operand2.join(''));
     let topDisplayString;
     let result;
-    switch(op){
+    switch (op) {
         case ADD:
-            console.log("FIRE");
+
             topDisplayString = `${firstFloat} + ${secondFloat} =`;
             result = firstFloat + secondFloat;
             OperationCleanup(topDisplayString, result);
@@ -178,15 +178,15 @@ function EqualsOperationLogic(operand1, operand2, op){
             break
         case MULT:
             topDisplayString = `${firstFloat} × ${secondFloat} =`;
-            result = firstFloat*secondFloat;
+            result = firstFloat * secondFloat;
             OperationCleanup(topDisplayString, result);
             break
         case DIV:
-            if(secondFloat == 0){
+            if (secondFloat == 0) {
                 return dividedByZeroError();
             }
             topDisplayString = `${firstFloat} ÷ ${secondFloat} =`;
-            result = firstFloat/secondFloat;
+            result = firstFloat / secondFloat;
             OperationCleanup(topDisplayString, result);
             break
     }
@@ -194,13 +194,13 @@ function EqualsOperationLogic(operand1, operand2, op){
 
 
 
-function OperationCleanup(topDisplayString, result){
+function OperationCleanup(topDisplayString, result) {
     topDisplay.textContent = topDisplayString;
     mainDisplay.textContent = result;
     cachedOperator = operator;
     operator = null;
     let resultArr = (`${result}`).split('');
-    if(!(resultArr[0] == '-' || resultArr[0] == '+')){
+    if (!(resultArr[0] == '-' || resultArr[0] == '+')) {
         resultArr.unshift('+');
     }
     firstOperand = resultArr;
@@ -208,7 +208,7 @@ function OperationCleanup(topDisplayString, result){
     secondOperand = [];
 }
 
-function dividedByZeroError(){
+function dividedByZeroError() {
     errorState = 1;
     firstOperand = [];
     secondOperand = [];
@@ -219,10 +219,9 @@ function dividedByZeroError(){
     mainDisplay.textContent = "You Cannot Divide by Zero!";
 }
 
-function AdditionOperation(){
-    console.log(firstOperand);
-    console.log(secondOperand);
-    if(secondOperand.length > 0){
+function AdditionOperation() {
+
+    if (secondOperand.length > 0) {
         EqualsOperationLogic(firstOperand, secondOperand, operator);
     }
     operator = ADD;
@@ -232,8 +231,8 @@ function AdditionOperation(){
     return;
 }
 
-function SubtractionOperation(){
-    if(secondOperand.length > 0){
+function SubtractionOperation() {
+    if (secondOperand.length > 0) {
         EqualsOperationLogic(firstOperand, secondOperand, operator);
     }
     operator = SUB;
@@ -243,8 +242,8 @@ function SubtractionOperation(){
     return;
 }
 
-function DivisionOperation(){
-    if(secondOperand.length > 0){
+function DivisionOperation() {
+    if (secondOperand.length > 0) {
         EqualsOperationLogic(firstOperand, secondOperand, operator);
     }
     operator = DIV;
@@ -254,8 +253,8 @@ function DivisionOperation(){
     return;
 }
 
-function MultiplicationOperation(){
-    if(secondOperand.length > 0){
+function MultiplicationOperation() {
+    if (secondOperand.length > 0) {
         EqualsOperationLogic(firstOperand, secondOperand, operator);
     }
     operator = MULT;
@@ -266,39 +265,55 @@ function MultiplicationOperation(){
 }
 
 
-function getCurrentOperand(){
-    if(operator == null){
+function getCurrentOperand() {
+    if (operator == null) {
         return firstOperand;
     }
     return secondOperand;
 }
 
 
-function updateMainDisplay(currentOperand){
+function updateMainDisplay(currentOperand) {
     currentFloat = parseFloat(currentOperand.join(''));
-    if(currentOperand[currentOperand.length-1] == '.'){
+    if (currentOperand[currentOperand.length - 1] == '.') {
         mainDisplay.textContent = `${currentFloat}.`;
     }
-    else{
+    else {
         mainDisplay.textContent = currentFloat;
     }
 }
 
-function updateMainDisplayString(displayString){
+function updateMainDisplayString(displayString) {
     mainDisplay.textContent = displayString;
 }
 
-function updateTopDisplay(displayString){
+function updateTopDisplay(displayString) {
     topDisplay.textContent = displayString;
 }
 
-function ClearAllButton(){
+function ClearAllButton() {
     ClearAll();
     topDisplay.textContent = "";
     mainDisplay.textContent = "0";
 }
 
-function ClearAll(){
+function UtilEvent(cell) {
+    const buttonPressed = cell.id;
+    switch (buttonPressed) {
+        case "ceButton":
+            ClearCurrent();
+            break;
+        case "cButton":
+            ClearAllButton();
+            break;
+        case "backspace":
+            Backspace();
+            break;
+    }
+}
+
+
+function ClearAll() {
     firstOperand = [];
     operator = null;
     secondOperand = [];
@@ -306,13 +321,30 @@ function ClearAll(){
     cachedOperator = null;
 }
 
-function ClearCurrent(){
-    let currentOperand= getCurrentOperand();
-    while(currentOperand.length > 0){
+function ClearCurrent() {
+    let currentOperand = getCurrentOperand();
+    while (currentOperand.length > 0) {
         currentOperand.pop();
     }
     mainDisplay.textContent = 0;
 }
+
+function Backspace() {
+    let currentOperand = getCurrentOperand();
+    currentOperand.pop();
+    if (currentOperand.length == 1) {
+        currentOperand.pop();
+    }
+    let operandFloat;
+    if (currentOperand.length < 1) {
+        operandFloat = 0;
+    }
+    else {
+        operandFloat = parseFloat(currentOperand.join(''));
+    }
+    mainDisplay.textContent = operandFloat;
+}
+
 
 
 
